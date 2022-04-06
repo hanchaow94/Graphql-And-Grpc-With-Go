@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package example;
+
+option go_package = "example/api";
+
+service ExampleService {
+    rpc example (ExampleRequest) returns (ExampleResponse) {}
+}
+
+message ExampleRequest {
+    string id = 1;
+    string name = 2;
+}
+
+
+message ExampleResponse {
+    enum Result {
+        SUCCESS = 0;
+        FAILED = 1; 
+    }
+	Result result = 1;
+	string msg = 2;
+}
