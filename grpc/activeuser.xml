@@ -1,0 +1,30 @@
+<needle>
+  <schema name="Languages" hiddenFields="" mainObj="Language">
+    <sql>
+      CREATE TABLE Languages (
+        LanguageID      int NOT NULL
+      )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    </sql>
+    <!-- add references here if query or mutation joined other tables. -->
+    <!-- <ref src="foo/bar.xml"></ref> -->
+  </schema>
+  <stmts>
+    <query name="GetLanguages" type="many" cacheDuration="5m">
+      <sql>
+        SELECT * FROM Languages;
+      </sql>
+    </query>
+    <query name="GetLanguageByID" type="single" cacheDuration="5m">
+      <sql>
+        SELECT * FROM Languages WHERE LanguageID = ?;
+      </sql>
+    </query>
+    <mutation name="InsertLanguage" invalidate="GetLanguageByID,GetLanguages">
+      <sql>
+        INSERT INTO Languages
+        (LanguageID)
+        VALUES(?);
+      </sql>
+    </mutation>
+  </stmts>
+</needle>
